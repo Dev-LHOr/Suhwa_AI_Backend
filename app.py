@@ -137,8 +137,12 @@ classifier = LightweightClassifierBridge()
 
 
 @app.get("/")
-async def serve_frontend():
-    return FileResponse(BASE_DIR / "index.html")
+async def root():
+    return JSONResponse({
+        "status": "ok",
+        "service": "KSL Sunny Quest Backend",
+        "model_loaded": classifier.model is not None,
+    })
 
 
 @app.get("/favicon.ico", include_in_schema=False)
